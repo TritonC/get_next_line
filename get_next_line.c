@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 12:49:38 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/10 17:12:09 by manuel           ###   ########.fr       */
+/*   Updated: 2022/07/10 17:46:49 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*check_line(char *str)
 	count = 0;
 	while (str[count] && str[count] != '\n')
 		count++;
-	line = ft_calloc(count + 2, 1);
+	line = ft_calloc(count + 2, sizeof(char));
 	count = 0;
 	while (str[count] && str[count] != '\n')
 	{
@@ -33,7 +33,7 @@ char	*check_line(char *str)
 		count++;
 	}
 	if (line[count] && line [count] == '\n')
-		line[count++] = '\n';
+		line[count] = '\n';
 	return (line);
 }
 
@@ -50,6 +50,8 @@ char	*read_and_save(int fd, char *buff)
 	char	*sub_buff;
 	ssize_t	bytes_count;
 
+	if (!buff)
+		return (NULL);
 	sub_buff = ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!sub_buff)
 		return (NULL);
@@ -60,9 +62,10 @@ char	*read_and_save(int fd, char *buff)
 		if (bytes_count == -1)
 		{
 			free (sub_buff);
+			free (buff);
 			return (NULL);
 		}
-		buff[bytes_count] = 0;
+		buff[bytes_count] = '\0';
 		buff = ft_strjoin(buff, sub_buff);
 		if (ft_strchr(buff, '\n'))
 			break ;
@@ -84,14 +87,16 @@ char	*rest_of_file(char *buffer)
 	char	*sub_buffer;
 
 	i = 0;
+	if (!buffer)
+		return (NULL);
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	sub_buffer = ft_calloc(ft_strlen(buffer) - i + 1, 1);
-	if (!sub_buffer)
-	{	
-		free (sub_buffer);
+	if (!buffer[i])
+	{
+		free (buffer);
 		return (NULL);
 	}
+	sub_buffer = ft_calloc(ft_strlen(buffer) - i + 1, sizeof(char));
 	i++;
 	j = 0;
 	while (buffer[i])
