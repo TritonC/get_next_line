@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:09:57 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/07 22:37:06 by manuel           ###   ########.fr       */
+/*   Updated: 2022/07/10 16:10:00 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	*ft_calloc(size_t n, size_t size)
 {
 	size_t	c;
-	void    *ptr;
+	void	*ptr;
 
 	c = 0;
 	ptr = malloc(n * size);
@@ -44,7 +44,7 @@ char	*ft_strchr(const char *str, int ch)
 		return ((char *)str + (char *) len);
 	while (*str)
 	{
-		if(*str == (char *)ch)
+		if (*str == (char)ch)
 			return ((char *)str);
 		str++;
 	}

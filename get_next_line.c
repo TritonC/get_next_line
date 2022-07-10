@@ -6,7 +6,7 @@
 /*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 12:49:38 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/10 15:52:19 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/10 16:54:05 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ char	*check_line(char *str)
 	line = ft_calloc(count + 2, 1);
 	count = 0;
 	while (str[count] && str[count] != '\n')
-		line[count] = str[count++];
+	{
+		line[count] = str[count];
+		count++;
+	}
 	return (line);
 }
 
@@ -43,13 +46,13 @@ released just at the end of the function
 char	*read_and_save(int fd, char *buff)
 {
 	char	*sub_buff;
-	size_t	bytes_count;
+	ssize_t	bytes_count;
 
 	sub_buff = ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!sub_buff)
 		return (NULL);
 	bytes_count = 1;
-	while (!ft_strchr(buff, '\n') && bytes_count != 0)
+	while (bytes_count > 0)
 	{
 		bytes_count = read(fd, sub_buff, BUFFER_SIZE);
 		if (bytes_count == -1)
@@ -57,7 +60,10 @@ char	*read_and_save(int fd, char *buff)
 			free (sub_buff);
 			return (NULL);
 		}
+		buff[bytes_count] = 0;
 		buff = ft_strjoin(buff, sub_buff);
+		if (ft_strchr(buff, '\n'))
+			return ;
 	}
 	free (sub_buff);
 	return (buff);
