@@ -6,7 +6,7 @@
 /*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:19:59 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/07 22:37:09 by manuel           ###   ########.fr       */
+/*   Updated: 2022/07/10 15:22:14 by manuel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,7 @@ size_t	ft_strlen(char *str);
 char	*ft_strchr(const char *str, int ch);
 char	*ft_strjoin(char const *dest, char const *src);
 
+#endif
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
 #endif
