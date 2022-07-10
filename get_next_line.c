@@ -6,7 +6,7 @@
 /*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 12:49:38 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/10 15:22:11 by manuel           ###   ########.fr       */
+/*   Updated: 2022/07/10 15:24:31 by manuel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,14 @@ char	*rest_of_file(char *buffer)
 char	*get_next_line(int fd)
 {
 	char		*line_print;
-	static char	*line;
+	static char	*buffer;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line_print = read_and_save (fd, line);
+	buffer = read_and_save (fd, buffer);
 	if (!line_print)
 		return (NULL);
-	line = check_line(line_print);
-	line_print = rest_of_file(line_print);
-	return (line);
+	line_print = check_line(buffer);
+	buffer = rest_of_file(buffer);
+	return (line_print);
 }
