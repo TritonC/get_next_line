@@ -6,26 +6,32 @@
 /*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:09:57 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/10 17:33:10 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/10 18:19:11 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_calloc(size_t n, size_t size)
+void	*ft_calloc(size_t count, size_t size)
 {
-	size_t	c;
-	void	*ptr;
+	size_t	num;
+	size_t	counter;
+	char	*mem;
 
-	c = 0;
-	ptr = malloc(n * size);
-	if (ptr != NULL)
-		while (c++ < n)
-			((unsigned char *)ptr)[c - 1] = 0;
-	return (ptr);
+	num = count * size;
+	counter = 0;
+	mem = NULL;
+	if (num < size && num < count)
+		return (NULL);
+	mem = malloc(num);
+	if (!mem)
+		return (NULL);
+	while (counter < num)
+		mem[counter++] = 0;
+	return ((void *)mem);
 }
 
-size_t	ft_strlen(char *str)
+size_t	ft_strlen(const char *str)
 {
 	size_t	count;
 
@@ -39,9 +45,9 @@ char	*ft_strchr(const char *str, int ch)
 {
 	int	len;
 
-	len = ft_strlen((char *)str);
+	len = ft_strlen(str);
 	if (ch == 0)
-		return ((char *)str + len);
+		return ((char *)str + (char)len);
 	while (*str)
 	{
 		if (*str == (char)ch)
@@ -51,7 +57,7 @@ char	*ft_strchr(const char *str, int ch)
 	return (0);
 }
 
-char	*ft_strjoin(char const *dest, char *src)
+char	*ft_strjoin(char const *dest, char const *src)
 {
 	size_t	i;
 	size_t	j;
@@ -62,7 +68,7 @@ char	*ft_strjoin(char const *dest, char *src)
 	j = 0;
 	if (!dest || !src)
 		return (NULL);
-	len = ft_strlen((char *)dest) + ft_strlen(src);
+	len = ft_strlen(dest) + ft_strlen(src);
 	aux = (char *)malloc(sizeof(char) * (len + 1));
 	if (!aux)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:19:59 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/10 17:32:33 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/10 18:19:25 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # define GET_NEXT_LINE_H
 
 void	*ft_calloc(size_t n, size_t size);
-size_t	ft_strlen(char *str);
+size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *str, int ch);
-char	*ft_strjoin(char const *dest, char *src);
+char	*ft_strjoin(char const *dest, const char *src);
 char	*get_next_line(int fd);
 char	*read_and_save(int fd, char *buff);
 char	*check_line(char *str);
