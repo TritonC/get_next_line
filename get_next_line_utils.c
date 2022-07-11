@@ -6,7 +6,7 @@
 /*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:09:57 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/11 17:09:56 by manuel           ###   ########.fr       */
+/*   Updated: 2022/07/11 17:12:26 by manuel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ char	*ft_strchr(const char *string, int ch)
 
 char	*ft_strjoin(char const *dest, char const *src)
 {
-	int		sizetotal;
+	int		len;
 	char	*res;
 	int		i;
 	int		j;
 
 	i = 0;
-	sizetotal = ft_strlen(dest) + ft_strlen(src);
-	res = malloc(sizeof(char) * (sizetotal + 1));
+	len = ft_strlen(dest) + ft_strlen(src);
+	res = ft_calloc(sizeof(char), (len + 1));
 	if (!res || !dest || !src)
 		return (NULL);
 	while (dest[i] != 0)
@@ -82,6 +82,5 @@ char	*ft_strjoin(char const *dest, char const *src)
 		i++;
 		j++;
 	}
-	res[sizetotal] = 0;
 	return (res);
 }

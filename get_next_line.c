@@ -6,7 +6,7 @@
 /*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 12:49:38 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/11 17:07:16 by manuel           ###   ########.fr       */
+/*   Updated: 2022/07/11 17:11:16 by manuel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ char	*get_next_line(int fd)
 	buffer = rest_of_file(buffer);
 	return (line_print);
 }
-/*
+
 int	main()
 {
 	char	*sol;
@@ -150,4 +150,3 @@ int	main()
 		printf("%c", sol[i++]);
 	return (0);
 }
-*/
