@@ -6,12 +6,20 @@
 /*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 12:49:38 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/10 18:13:16 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/11 16:10:58 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+char	*ft_join_and_free(char *buffer, char *sub_bufer)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(buffer, sub_bufer);
+	free(buffer);
+	return (tmp);
+}
 /*
 this function checks if there is a line to copy, and stores it in a 
 dynamic array and returns the new line with a line feed and a null.
@@ -32,7 +40,7 @@ char	*check_line(char *str)
 		line[count] = str[count];
 		count++;
 	}
-	if (line[count] && line [count] == '\n')
+	if (str[count] == '\n')
 		line[count] = '\n';
 	return (line);
 }
@@ -45,14 +53,14 @@ and there we store what we want to be copied from the line, we join to save
 that is the function passed by parameter to be returned, and line is 
 released just at the end of the function
 */
-char	*read_and_save(int fd, char *buff)
+char	*read_and_save(int fd, char **buff)
 {
 	char	*sub_buff;
 	ssize_t	bytes_count;
 
 	if (!buff)
 		return (NULL);
-	sub_buff = ft_calloc(BUFFER_SIZE + 1, 1);
+	sub_buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!sub_buff)
 		return (NULL);
 	bytes_count = 1;
@@ -62,16 +70,15 @@ char	*read_and_save(int fd, char *buff)
 		if (bytes_count == -1)
 		{
 			free (sub_buff);
-			free (buff);
+			free (*buff);
 			return (NULL);
 		}
-		buff[bytes_count] = '\0';
-		buff = ft_strjoin(buff, sub_buff);
-		if (ft_strchr(buff, '\n'))
+		*buff = ft_join_and_free(*buff, sub_buff);
+		if (ft_strchr(*buff, '\n'))
 			break ;
 	}
 	free (sub_buff);
-	return (buff);
+	return (*buff);
 }
 
 /*
@@ -122,10 +129,24 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = read_and_save (fd, buffer);
+	buffer = read_and_save (fd, &buffer);
 	if (!buffer)
 		return (NULL);
 	line_print = check_line(buffer);
 	buffer = rest_of_file(buffer);
 	return (line_print);
+}
+
+int	main()
+{
+	char	*sol;
+	int		fd;
+	int		i;
+
+	i = 0;
+	fd = open("we", O_RDONLY);
+	sol = get_next_line(fd);
+	while (sol[i])
+		printf("%c", sol[i++]);
+	return (0);
 }
