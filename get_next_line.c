@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 12:49:38 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/11 18:16:17 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/11 18:54:19 by manuel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*read_and_save(int fd, char *buff)
 			return (NULL);
 		}
 		buff = ft_join_and_free(buff, sub_buff);
-		if (ft_strchr(buff, '\n') || bytes_count != BUFFER_SIZE)
+		if (ft_strchr(buff, '\n') || bytes_count < BUFFER_SIZE)
 			break ;
 	}
 	free (sub_buff);
@@ -135,7 +135,7 @@ char	*get_next_line(int fd)
 	buffer = rest_of_file(buffer);
 	return (line_print);
 }
-/*
+
 int	main()
 {
 	int		fd;
@@ -149,4 +149,3 @@ int	main()
 	}
 	return (0);
 }
-*/
