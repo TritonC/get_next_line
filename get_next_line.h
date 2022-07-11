@@ -25,7 +25,7 @@ char	*ft_strjoin(char const *dest, const char *src);
 char	*get_next_line(int fd);
 char	*check_line(char *str);
 char	*rest_of_file(char *buffer);
-char	*read_and_save(int fd, char **buff);
+char	*read_and_save(int fd, char *buff);
 
 #endif
 #ifndef BUFFER_SIZE

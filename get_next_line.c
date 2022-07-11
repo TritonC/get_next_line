@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 12:49:38 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/11 16:10:58 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/11 17:07:16 by manuel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ char	*check_line(char *str)
 		line[count] = str[count];
 		count++;
 	}
-	if (str[count] == '\n')
-		line[count] = '\n';
+	if (str[count] == '\n' && str[count])
+		line[count++] = '\n';
 	return (line);
 }
 
@@ -53,7 +53,7 @@ and there we store what we want to be copied from the line, we join to save
 that is the function passed by parameter to be returned, and line is 
 released just at the end of the function
 */
-char	*read_and_save(int fd, char **buff)
+char	*read_and_save(int fd, char *buff)
 {
 	char	*sub_buff;
 	ssize_t	bytes_count;
@@ -70,15 +70,15 @@ char	*read_and_save(int fd, char **buff)
 		if (bytes_count == -1)
 		{
 			free (sub_buff);
-			free (*buff);
+			free (buff);
 			return (NULL);
 		}
-		*buff = ft_join_and_free(*buff, sub_buff);
-		if (ft_strchr(*buff, '\n'))
+		buff = ft_join_and_free(buff, sub_buff);
+		if (ft_strchr(buff, '\n'))
 			break ;
 	}
 	free (sub_buff);
-	return (*buff);
+	return (buff);
 }
 
 /*
@@ -127,16 +127,16 @@ char	*get_next_line(int fd)
 	char		*line_print;
 	static char	*buffer;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	buffer = read_and_save (fd, &buffer);
+	buffer = read_and_save (fd, buffer);
 	if (!buffer)
 		return (NULL);
 	line_print = check_line(buffer);
 	buffer = rest_of_file(buffer);
 	return (line_print);
 }
-
+/*
 int	main()
 {
 	char	*sol;
@@ -150,3 +150,4 @@ int	main()
 		printf("%c", sol[i++]);
 	return (0);
 }
+*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:09:57 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/11 16:15:52 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/11 17:09:56 by manuel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,42 +45,43 @@ size_t	ft_strlen(const char *str)
 	return (count);
 }
 
-char	*ft_strchr(const char *str, int ch)
+char	*ft_strchr(const char *string, int ch)
 {
-	int	len;
+	char	*str;
 
-	len = ft_strlen(str);
-	if (ch == 0)
-		return ((char *)str + (char)len);
-	while (*str)
-	{
-		if (*str == (char)ch)
-			return ((char *)str);
+	str = (char *)string;
+	while (*str != ch && *str != 0)
 		str++;
-	}
-	return (0);
+	if (*str == ch)
+		return (str);
+	else
+		return (NULL);
 }
 
 char	*ft_strjoin(char const *dest, char const *src)
 {
-	char	*join;
-	size_t	len;
+	int		sizetotal;
+	char	*res;
+	int		i;
+	int		j;
 
-	if (!dest && !src)
+	i = 0;
+	sizetotal = ft_strlen(dest) + ft_strlen(src);
+	res = malloc(sizeof(char) * (sizetotal + 1));
+	if (!res || !dest || !src)
 		return (NULL);
-	len = ft_strlen(dest) + ft_strlen(src) + 1;
-	join = ft_calloc(len, sizeof(char));
-	if (!join)
-		return (NULL);
-	if (dest)
+	while (dest[i] != 0)
 	{
-		while (dest)
-			*join++ = *dest++;
+		res[i] = dest[i];
+		i++;
 	}
-	if (src)
+	j = 0;
+	while (src[j] != 0)
 	{
-		while (*src)
-			*join++ = *src++;
+		res[i] = src[j];
+		i++;
+		j++;
 	}
-	return (join - len);
+	res[sizetotal] = 0;
+	return (res);
 }
