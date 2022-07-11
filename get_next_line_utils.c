@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:09:57 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/11 17:12:26 by manuel           ###   ########.fr       */
+/*   Updated: 2022/07/11 17:36:29 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,20 @@ size_t	ft_strlen(const char *str)
 	return (count);
 }
 
-char	*ft_strchr(const char *string, int ch)
+char	*ft_strchr(const char *str, int ch)
 {
-	char	*str;
+	int	len;
 
-	str = (char *)string;
-	while (*str != ch && *str != 0)
+	len = ft_strlen(str);
+	if (ch == 0)
+		return ((char *)str + (char)len);
+	while (*str)
+	{
+		if (*str == (char)ch)
+			return ((char *)str);
 		str++;
-	if (*str == ch)
-		return (str);
-	else
-		return (NULL);
+	}
+	return (0);
 }
 
 char	*ft_strjoin(char const *dest, char const *src)
@@ -68,12 +71,15 @@ char	*ft_strjoin(char const *dest, char const *src)
 	i = 0;
 	len = ft_strlen(dest) + ft_strlen(src);
 	res = ft_calloc(sizeof(char), (len + 1));
-	if (!res || !dest || !src)
+	if (!res || (!dest && !src))
 		return (NULL);
-	while (dest[i] != 0)
+	if (dest)
 	{
-		res[i] = dest[i];
-		i++;
+		while (dest[i])
+		{
+			res[i] = dest[i];
+			i++;
+		}
 	}
 	j = 0;
 	while (src[j] != 0)

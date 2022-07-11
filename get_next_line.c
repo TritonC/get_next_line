@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 12:49:38 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/11 17:11:16 by manuel           ###   ########.fr       */
+/*   Updated: 2022/07/11 18:16:17 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,20 @@ char	*check_line(char *str)
 {
 	int		count;
 	char	*line;
+	int		count2;
 
+	if (!str)
+		return (NULL);
 	count = 0;
+	count2 = 0;
 	while (str[count] && str[count] != '\n')
 		count++;
 	line = ft_calloc(count + 2, sizeof(char));
-	count = 0;
-	while (str[count] && str[count] != '\n')
+	while (count2 <= count)
 	{
-		line[count] = str[count];
-		count++;
+		line[count2] = str[count2];
+		count2++;
 	}
-	if (str[count] == '\n' && str[count])
-		line[count++] = '\n';
 	return (line);
 }
 
@@ -58,8 +59,6 @@ char	*read_and_save(int fd, char *buff)
 	char	*sub_buff;
 	ssize_t	bytes_count;
 
-	if (!buff)
-		return (NULL);
 	sub_buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!sub_buff)
 		return (NULL);
@@ -67,14 +66,14 @@ char	*read_and_save(int fd, char *buff)
 	while (bytes_count > 0)
 	{
 		bytes_count = read(fd, sub_buff, BUFFER_SIZE);
-		if (bytes_count == -1)
+		if (bytes_count <= 0)
 		{
 			free (sub_buff);
 			free (buff);
 			return (NULL);
 		}
 		buff = ft_join_and_free(buff, sub_buff);
-		if (ft_strchr(buff, '\n'))
+		if (ft_strchr(buff, '\n') || bytes_count != BUFFER_SIZE)
 			break ;
 	}
 	free (sub_buff);
@@ -136,17 +135,18 @@ char	*get_next_line(int fd)
 	buffer = rest_of_file(buffer);
 	return (line_print);
 }
-
+/*
 int	main()
 {
-	char	*sol;
 	int		fd;
 	int		i;
 
-	i = 0;
-	fd = open("we", O_RDONLY);
-	sol = get_next_line(fd);
-	while (sol[i])
-		printf("%c", sol[i++]);
+	i = -1;
+	fd = open("gnlTester/files/42_no_nl", O_RDONLY);
+	while (++i < 1)
+	{
+		printf("%s", get_next_line(fd));
+	}
 	return (0);
 }
+*/
