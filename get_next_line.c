@@ -6,7 +6,7 @@
 /*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 12:49:38 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/12 12:02:36 by manuel           ###   ########.fr       */
+/*   Updated: 2022/07/13 10:45:36 by manuel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	*check_line(char *str)
 		line[count2] = str[count2];
 		count2++;
 	}
+	if (str[count2] == '\n' && str[count2])
+		line[count2] = '\n';
 	return (line);
 }
 
@@ -58,7 +60,8 @@ char	*read_and_save(int fd, char *buff)
 {
 	char	*sub_buff;
 	ssize_t	bytes_count;
-
+	if (!buff)
+		buff = ft_calloc(1, 1);
 	sub_buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!sub_buff)
 		return (NULL);
@@ -66,14 +69,14 @@ char	*read_and_save(int fd, char *buff)
 	while (bytes_count > 0)
 	{
 		bytes_count = read(fd, sub_buff, BUFFER_SIZE);
-		if (bytes_count <= 0)
+		if (bytes_count == -1)
 		{
 			free (sub_buff);
 			free (buff);
 			return (NULL);
 		}
 		buff = ft_join_and_free(buff, sub_buff);
-		if (ft_strchr(buff, '\n') || bytes_count < BUFFER_SIZE)
+		if (ft_strchr(buff, '\n'))
 			break ;
 	}
 	free (sub_buff);
