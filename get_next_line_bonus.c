@@ -6,7 +6,7 @@
 /*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:25:49 by mluis-fu          #+#    #+#             */
-/*   Updated: 2022/07/13 16:39:40 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/13 16:43:19 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,14 +141,9 @@ char	*get_next_line(int fd)
 int	main()
 {
 	int		fd;
-	int		i;
 
-	i = -1;
-	fd = open("gnlTester/files/43_with_nl", O_RDONLY);
-	while (++i < 2)
-	{
-		printf("%s", get_next_line(fd));
-	}
+	fd = open("we", O_RDONLY);
+	printf("%s", get_next_line(fd));
 	return (0);
 }
 */
