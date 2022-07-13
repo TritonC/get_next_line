@@ -6,7 +6,7 @@
 /*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:19:59 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/11 18:15:55 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/13 15:31:16 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ char	*read_and_save(int fd, char *buff);
 
 #endif
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
+# define BUFFER_SIZE 42
 #endif

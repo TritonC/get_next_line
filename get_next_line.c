@@ -6,7 +6,7 @@
 /*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 12:49:38 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/13 14:30:48 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/13 15:48:23 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,21 @@ char	*check_line(char *str)
 {
 	int		count;
 	char	*line;
-	int		count2;
 
 	count = 0;
-	count2 = 0;
 	if (!str[count])
 		return (NULL);
 	while (str[count] && str[count] != '\n')
 		count++;
 	line = ft_calloc(count + 2, sizeof(char));
-	while (count2 <= count)
+	count = 0;
+	while (str[count] && str[count] != '\n')
 	{
-		line[count2] = str[count2];
-		count2++;
+		line[count] = str[count];
+		count++;
 	}
-	if (str[count2] == '\n' && str[count2])
-		line[count2] = '\n';
+	if (str[count] == '\n' && str[count])
+		line[count] = '\n';
 	return (line);
 }
 
@@ -61,8 +60,6 @@ char	*read_and_save(int fd, char *buff)
 	char	*sub_buff;
 	ssize_t	bytes_count;
 
-	if (!buff)
-		buff = ft_calloc(1, 1);
 	sub_buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!sub_buff)
 		return (NULL);
@@ -105,8 +102,7 @@ char	*rest_of_file(char *buffer)
 	if (!buffer[i])
 	{
 		free (buffer);
-		buffer = NULL;
-		return (buffer);
+		return (NULL);
 	}
 	sub_buffer = ft_calloc(ft_strlen(buffer) - i + 1, 1);
 	i++;
@@ -132,7 +128,7 @@ char	*get_next_line(int fd)
 	char		*line_print;
 	static char	*buffer;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = read_and_save (fd, buffer);
 	if (!buffer)
@@ -148,7 +144,7 @@ int	main()
 	int		i;
 
 	i = -1;
-	fd = open("we", O_RDONLY);
+	fd = open("gnlTester/files/43_with_nl", O_RDONLY);
 	while (++i < 2)
 	{
 		printf("%s", get_next_line(fd));
