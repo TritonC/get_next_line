@@ -6,7 +6,7 @@
 /*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:25:49 by mluis-fu          #+#    #+#             */
-/*   Updated: 2022/07/13 16:28:06 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/13 16:39:40 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,15 +126,15 @@ char * so that the function can continue to be called in loop!
 char	*get_next_line(int fd)
 {
 	char		*line_print;
-	static char	*buffer;
+	static char	*buffer[FOPEN_MAX];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = read_and_save (fd, buffer);
-	if (!buffer)
+	*buffer = read_and_save (fd, *buffer);
+	if (!*buffer)
 		return (NULL);
-	line_print = check_line(buffer);
-	buffer = rest_of_file(buffer);
+	line_print = check_line(*buffer);
+	*buffer = rest_of_file(*buffer);
 	return (line_print);
 }
 /*
