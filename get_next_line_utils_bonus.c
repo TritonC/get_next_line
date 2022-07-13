@@ -6,11 +6,11 @@
 /*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:26:10 by mluis-fu          #+#    #+#             */
-/*   Updated: 2022/07/13 16:27:32 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/13 16:49:50 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {
