@@ -6,17 +6,17 @@
 /*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:19:59 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/13 15:31:16 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/13 18:36:29 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
-
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
 
 void	*ft_calloc(size_t n, size_t size);
 size_t	ft_strlen(const char *str);
@@ -27,7 +27,4 @@ char	*check_line(char *str);
 char	*rest_of_file(char *buffer);
 char	*read_and_save(int fd, char *buff);
 
-#endif
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 42
 #endif
