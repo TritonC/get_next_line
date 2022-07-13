@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:25:49 by mluis-fu          #+#    #+#             */
-/*   Updated: 2022/07/13 16:48:44 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/13 15:36:21 by manuel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char	*read_and_save(int fd, char *buff)
 	char	*sub_buff;
 	ssize_t	bytes_count;
 
+	if (!buff)
+		buff = ft_calloc(1, 1);
 	sub_buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!sub_buff)
 		return (NULL);
@@ -130,11 +132,11 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	*buffer = read_and_save (fd, *buffer);
-	if (!*buffer)
+	buffer[fd] = read_and_save (fd, buffer[fd]);
+	if (!buffer[fd])
 		return (NULL);
-	line_print = check_line(*buffer);
-	*buffer = rest_of_file(*buffer);
+	line_print = check_line(buffer[fd]);
+	buffer[fd] = rest_of_file(buffer[fd]);
 	return (line_print);
 }
 /*
