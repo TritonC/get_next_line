@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manuel <manuel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 12:49:38 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/13 10:45:36 by manuel           ###   ########.fr       */
+/*   Updated: 2022/07/13 14:30:48 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char	*ft_join_and_free(char *buffer, char *sub_bufer)
 {
-	char	*tmp;
+	char	*aux;
 
-	tmp = ft_strjoin(buffer, sub_bufer);
+	aux = ft_strjoin(buffer, sub_bufer);
 	free(buffer);
-	return (tmp);
+	return (aux);
 }
 /*
 this function checks if there is a line to copy, and stores it in a 
@@ -31,10 +31,10 @@ char	*check_line(char *str)
 	char	*line;
 	int		count2;
 
-	if (!str)
-		return (NULL);
 	count = 0;
 	count2 = 0;
+	if (!str[count])
+		return (NULL);
 	while (str[count] && str[count] != '\n')
 		count++;
 	line = ft_calloc(count + 2, sizeof(char));
@@ -60,6 +60,7 @@ char	*read_and_save(int fd, char *buff)
 {
 	char	*sub_buff;
 	ssize_t	bytes_count;
+
 	if (!buff)
 		buff = ft_calloc(1, 1);
 	sub_buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
@@ -75,6 +76,7 @@ char	*read_and_save(int fd, char *buff)
 			free (buff);
 			return (NULL);
 		}
+		sub_buff[bytes_count] = '\0';
 		buff = ft_join_and_free(buff, sub_buff);
 		if (ft_strchr(buff, '\n'))
 			break ;
@@ -103,9 +105,10 @@ char	*rest_of_file(char *buffer)
 	if (!buffer[i])
 	{
 		free (buffer);
-		return (NULL);
+		buffer = NULL;
+		return (buffer);
 	}
-	sub_buffer = ft_calloc(ft_strlen(buffer) - i + 1, sizeof(char));
+	sub_buffer = ft_calloc(ft_strlen(buffer) - i + 1, 1);
 	i++;
 	j = 0;
 	while (buffer[i])
@@ -138,17 +141,18 @@ char	*get_next_line(int fd)
 	buffer = rest_of_file(buffer);
 	return (line_print);
 }
-
+/*
 int	main()
 {
 	int		fd;
 	int		i;
 
 	i = -1;
-	fd = open("gnlTester/files/42_no_nl", O_RDONLY);
-	while (++i < 1)
+	fd = open("we", O_RDONLY);
+	while (++i < 2)
 	{
 		printf("%s", get_next_line(fd));
 	}
 	return (0);
 }
+*/
