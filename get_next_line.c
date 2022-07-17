@@ -6,7 +6,7 @@
 /*   By: mluis-fu <mluis-fu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 12:49:38 by manuel            #+#    #+#             */
-/*   Updated: 2022/07/13 15:48:23 by mluis-fu         ###   ########.fr       */
+/*   Updated: 2022/07/17 20:10:47 by mluis-fu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char	*read_and_save(int fd, char *buff)
 	char	*sub_buff;
 	ssize_t	bytes_count;
 
+	if (!buff)
+		buff = ft_calloc(1, 1);
 	sub_buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!sub_buff)
 		return (NULL);
